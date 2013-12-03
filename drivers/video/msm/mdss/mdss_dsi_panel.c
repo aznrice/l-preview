@@ -36,6 +36,8 @@
 
 #include <asm/system_info.h>
 
+#include <asm/system_info.h>
+
 #include "mdss_dsi.h"
 #include "mdss_mdp.h"
 
