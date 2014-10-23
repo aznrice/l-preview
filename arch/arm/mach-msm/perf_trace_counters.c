@@ -1,4 +1,4 @@
-/* Copyright (c) 2013, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -20,18 +20,19 @@ static unsigned int tp_pid_state;
 static int tracectr_notifier(struct notifier_block *self, unsigned long cmd,
 		void *v)
 {
-	static int old_pid = -1;
 	struct thread_info *thread = v;
 	int current_pid;
+	u32 cpu = thread->cpu;
 
 	if (cmd != THREAD_NOTIFY_SWITCH)
-		return old_pid;
+		return -EFAULT;
 
 	current_pid = thread->task->pid;
-	if (old_pid != -1)
-		trace_sched_switch_with_ctrs(old_pid, current_pid);
-	old_pid = current_pid;
-	return old_pid;
+	if (per_cpu(old_pid, cpu) != -1)
+		trace_sched_switch_with_ctrs(per_cpu(old_pid, cpu),
+						current_pid);
+	per_cpu(old_pid, cpu) = current_pid;
+	return NOTIFY_OK;
 }
 
 static struct notifier_block tracectr_notifier_block = {

@@ -31,6 +31,9 @@
 #include <linux/tracepoint.h>
 #include <mach/msm-krait-l2-accessors.h>
 
+DECLARE_PER_CPU(u32, previous_ccnt);
+DECLARE_PER_CPU(u32[NUM_L1_CTRS], previous_l1_cnts);
+DECLARE_PER_CPU(u32[NUM_L2_PERCPU], previous_l2_cnts);
 TRACE_EVENT(sched_switch_with_ctrs,
 
 		TP_PROTO(pid_t prev, pid_t next),
