@@ -8,16 +8,16 @@ USEFTP=0;
 SOURCE_DIR="$(pwd)"
 #crosscompile stuff
 CROSSARCH="arm"
-CROSSCC="$CROSSARCH-eabi-"
+CROSSCC="$CROSSARCH-cortex_a15-linux-gnueabihf-"
 TOOLCHAIN_D="$(pwd)/toolch"
-TOOLCHAIN="$(pwd)/toolch/android-toolchain-eabi/bin"
+TOOLCHAIN="$HOME/x-tools/arm-cortex_a15-linux-gnueabihf/bin"
 #our used directories
 PREBUILT="$(pwd)/prebuilt"
 OUT_DIR="$(pwd)/out"
 #compile neccesities
 USERCCDIR="$HOME/.ccache"
 CODENAME="hammerhead"
-DEFCONFIG="bricked_defconfig"
+DEFCONFIG="bricked_bluez-l_defconfig"
 NRJOBS=$(( $(nproc) * 2 ))
 #ftpstuff
 RETRY="60s";
